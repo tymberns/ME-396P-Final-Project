@@ -8,12 +8,11 @@ from utils import get_trial_id, download_trial
 from utilsPlotting import plot_dataframe_with_shading
 
 # %% Paths.
-baseDir = os.path.join(os.getcwd(), '..')
-dataFolder = os.path.join(baseDir, 'Data')
+baseDir = os.path.join(os.getcwd())
 
 # %% User-defined variables.
-session_id = '99d7534a-b172-4908-9d41-2fd47289be97'
-trial_name = 'walk1'
+session_id = 'OpenCapData_99d7534a-b172-4908-9d41-2fd47289be97'
+trialName = 'walk1'
 
 scalar_names = {'gait_speed','stride_length','step_width','cadence',
                 'single_support_time','double_support_time','step_length_symmetry', 
@@ -28,13 +27,13 @@ filter_frequency = 6
 
 # %% Gait analysis.
 # Get trial id from name.
-trial_id = get_trial_id(session_id,trial_name)    
+# trial_id = get_trial_id(session_id,trial_name)    
 
 # Set session path.
-sessionDir = os.path.join(dataFolder, session_id)
+sessionDir = os.path.join(baseDir, session_id)
 
-# Download data.
-trialName = download_trial(trial_id,sessionDir,session_id=session_id) 
+# # Download data. Only works if logged into the same OpenCap account as the desired session
+# trialName = download_trial(trial_id,sessionDir,session_id=session_id) 
 
 # Init gait analysis.
 gait_r = ga(
@@ -46,6 +45,8 @@ gait_l = ga(
     lowpass_cutoff_frequency_for_coordinate_values=filter_frequency,
     n_gait_cycles=n_gait_cycles)
     
+time_window = [gait_r.startIdx, gait_r.endIdx]
+
 # Compute scalars and get time-normalized kinematic curves.
 gaitResults = {}
 gaitResults['scalars_r'] = gait_r.compute_scalars(scalar_names)
