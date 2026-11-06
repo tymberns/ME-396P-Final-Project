@@ -1,34 +1,9 @@
-'''
-    ---------------------------------------------------------------------------
-    OpenCap processing: example_gait_analysis.py
-    ---------------------------------------------------------------------------
-    Copyright 2023 Stanford University and the Authors
-    
-    Author(s): Scott Uhlrich
-    
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not
-    use this file except in compliance with the License. You may obtain a copy
-    of the License at http://www.apache.org/licenses/LICENSE-2.0
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-                
-    Please contact us for any questions: https://www.opencap.ai/#contact
-
-    This example shows how to run a kinematic analysis of gait data. It works
-    with either treadmill or overground gait. You can compute scalar metrics 
-    as well as gait cycle-averaged kinematic curves.
-    
-'''
-
 import os
 import sys
 sys.path.append("../")
 sys.path.append("../ActivityAnalyses")
 
-from gait_analysis import gait_analysis
+from gait_analysis_edited import gait_analysis_edited as ga
 from utils import get_trial_id, download_trial
 from utilsPlotting import plot_dataframe_with_shading
 
@@ -37,8 +12,6 @@ baseDir = os.path.join(os.getcwd(), '..')
 dataFolder = os.path.join(baseDir, 'Data')
 
 # %% User-defined variables.
-# Select example: options are treadmill and overground.
-example = 'overground'
 session_id = '99d7534a-b172-4908-9d41-2fd47289be97'
 trial_name = 'walk1'
 
@@ -64,11 +37,11 @@ sessionDir = os.path.join(dataFolder, session_id)
 trialName = download_trial(trial_id,sessionDir,session_id=session_id) 
 
 # Init gait analysis.
-gait_r = gait_analysis(
+gait_r = ga(
     sessionDir, trialName, leg='r',
     lowpass_cutoff_frequency_for_coordinate_values=filter_frequency,
     n_gait_cycles=n_gait_cycles)
-gait_l = gait_analysis(
+gait_l = ga(
     sessionDir, trialName, leg='l',
     lowpass_cutoff_frequency_for_coordinate_values=filter_frequency,
     n_gait_cycles=n_gait_cycles)
