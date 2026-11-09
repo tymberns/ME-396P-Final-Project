@@ -4,15 +4,16 @@ sys.path.append("../")
 sys.path.append("../ActivityAnalyses")
 
 from gait_analysis_edited import gait_analysis_edited as ga
-from utils import get_trial_id, download_trial
-from utilsPlotting import plot_dataframe_with_shading
+# from utils import get_trial_id, download_trial
+# from utilsPlotting import plot_dataframe_with_shading
 
 # %% Paths.
 baseDir = os.path.join(os.getcwd())
 
 # %% User-defined variables.
-session_id = 'OpenCapData_99d7534a-b172-4908-9d41-2fd47289be97'
-trialName = 'walk1'
+## TODO: Change this to automatically read the session id and trial name of the inputted folder
+session_id = 'OpenCapData_32b3af35-84c9-47dc-b251-aa90a800e14e'
+trialName = 'Walk1'
 
 scalar_names = {'gait_speed','stride_length','step_width','cadence',
                 'single_support_time','double_support_time','step_length_symmetry', 
@@ -44,8 +45,8 @@ gait_l = ga(
     sessionDir, trialName, leg='l',
     lowpass_cutoff_frequency_for_coordinate_values=filter_frequency,
     n_gait_cycles=n_gait_cycles)
-    
-time_window = [gait_r.startIdx, gait_r.endIdx]
+
+time_window = [gait_r.startTime, gait_r.endTime]
 
 # Compute scalars and get time-normalized kinematic curves.
 gaitResults = {}

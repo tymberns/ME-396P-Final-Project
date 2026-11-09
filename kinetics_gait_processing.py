@@ -18,13 +18,16 @@ sys.path.append(opensimADDir)
 from utilsOpenSimAD import processInputsOpenSimAD, plotResultsOpenSimAD
 from mainOpenSimAD import run_tracking
 
-session_id = "99d7534a-b172-4908-9d41-2fd47289be97"
-trial_name = 'walk1'
+## TODO: Change this to automatically read the session id and trial name of the inputted folder
+session_id = "32b3af35-84c9-47dc-b251-aa90a800e14e"
+trial_name = 'Walk1'
 
 case = '0' # Change this to compare across settings.
 motion_type = 'walking'
 
-time_window = [3.75, 5.25]
+## TODO: Get these values from the same variable name in gait_metrics.py (something 
+## like [time_window[0, 0], time_window[1, 0] to ensure start and end times come from the same gait cycle)
+time_window = [3.21667, 4.55]
     
 # Set to True to solve the optimal control problem.
 solveProblem = True
@@ -36,7 +39,7 @@ solveProblem = True
 analyzeResults = True
 
 # Path to where you want the data to be downloaded.
-dataFolder = os.path.join(baseDir, session_id)
+dataFolder = os.path.join(baseDir)
 
 # %% Setup. 
 if not 'time_window' in locals():
